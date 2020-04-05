@@ -1,7 +1,7 @@
 const express = require('express');
 const update = express.Router();
 const mongoose = require('mongoose');
-const Customer = require('../model/customerModel');
+const Customer = require('../model/customer.model');
 const auth = require('../config/auth');
 
 

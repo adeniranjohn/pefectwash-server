@@ -1,13 +1,10 @@
 const express = require('express');
 const shop = express.Router();
 const mongoose = require('mongoose');
-const passport = require('passport');
-const Customer = require('../model/customerModel');
-const Shop = require('../model/userModel');
+const Customer = require('../model/customer.model');
+const Shop = require('../model/user.model');
 const bcrypt = require('bcrypt');
 const auth = require('../config/auth');
-const session = require('express-session');
-require('../config/passport')(passport);
 
 
 shop.get('/:id', (req,res)=>{

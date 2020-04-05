@@ -11,7 +11,7 @@ const fs = require('fs');
 
 
 const app = express();
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 7000;
 app.use(cors());
 
 
@@ -38,7 +38,6 @@ mongoose.connect("mongodb://localhost:27017/perfectWash", { useNewUrlParser: tru
     .then(() => { console.log("Connected to Database") })
     .catch(() => { console.log("Unable to connect to the Database") });
 mongoose.set('useCreateIndex', true);
-
 mongoose.set('useFindAndModify', false);
 
 

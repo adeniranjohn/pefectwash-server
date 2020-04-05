@@ -1,36 +1,21 @@
 const express = require('express');
 const index = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-const Customer = require('../model/customerModel');
-const Shop = require('../model/userModel');
-const bcrypt = require('bcrypt');
+const Customer = require('../model/customer.model');
 
 
 
 
     //customer check on their items
-    index.get('/:phone',(req,res)=>{
+    index.get('/:phone',async (req,res)=>{
     const customer = req.params.phone;
-        console.log(customer);
-        Customer.find({phoneNumber : customer})
-        .then((docs)=>{ 
-            //console.log(docs);
-            res.status(200).json({
-                "status": "success",
-                "message": docs
-            });
-        })
-        .catch((err)=> 
-        res.status(401).json({
-            "status": "error",
-            "message":"something went wrong"
-        }));
-
-
-});
-
-
-
+        try{
+            const result = await Customer.find({phoneNumber : customer});
+            if(!result) return res.status(400).send("Kindly enter your correct phone number");
+            res.status(200).json({"data": result});
+        }catch(error){
+            res.status(400).send("Connection error");
+        }
+            
+    })
 
 module.exports = index;
