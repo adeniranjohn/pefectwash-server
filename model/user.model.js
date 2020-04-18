@@ -13,15 +13,15 @@ const shopSchema = new mongoose.Schema({
       unique: true},
     role: {
       type: String,
-      enum: ["Supervisor", "Administrator", "SuperAdministrator"]
+      enum: ["Supervisor", "Administrator", "SuperAdministrator"],
+      default: "Supervisor"
     },
     lastSign: {
       type: Date,
       default: null
     },
     password: {
-      type:String,
-      length: 120
+      type:String
     },
     createdAt: 
       {

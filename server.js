@@ -11,8 +11,9 @@ const fs = require('fs');
 
 
 const app = express();
-const port = process.env.PORT || 7000;
 app.use(cors());
+const port = process.env.PORT || 7000;
+
 
 
 

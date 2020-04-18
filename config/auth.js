@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 module.exports.theadmin = function(req,res,next){
     if(req.shop.role === "Administrator"){
-        console.log("Administrator");
+        console.log(req.shop);
         next();
     }
 }
@@ -18,9 +18,12 @@ module.exports.superAdmin = function(req,res,next){
 }
 module.exports.auth = function(req,res,next) {
     const token = req.header('x-auth-token');
-    console.log(token);
+    //const token = req.query.token;
+    //console.log(token);
     if(!token){
+        console.log("no token");
         return res.status(401).json({"status": "No token"})
+
     }else{
         try{
             const decoded = jwt.verify(token, "perfectWashKey");
