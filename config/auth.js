@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 
 module.exports.theadmin = function(req,res,next){
     if(req.shop.role === "Administrator"){
-        console.log(req.shop);
         next();
     }
 }

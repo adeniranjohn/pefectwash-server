@@ -33,11 +33,6 @@ const shopSchema = new mongoose.Schema({
 });
 
 
-shopSchema.methods.setPassword = (password) => {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-};
-
 shopSchema.methods.generateToken = function(){
   const token = jwt.sign({_id: this._id, phoneNumber: this.phoneNumber, role: this.role}, secret, { expiresIn: 60*60});
   return token;

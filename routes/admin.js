@@ -40,7 +40,7 @@ admin.post('/createShop',[auth, theadmin], async (req, res) => {
 });
 
 
-admin.get('/seeShops',  auth, async (req, res) => {
+admin.get('/shops',  [auth,theadmin],  async (req, res) => {
 
   try {const shops = await Shop.find({});
   if(shops){
@@ -53,25 +53,33 @@ admin.get('/seeShops',  auth, async (req, res) => {
   }
 });
 
-admin.put('/:phone/changePassword', [auth, theadmin], async(req,res) => {
-
-  const shopPhone = req.params.phone;
-  if(req.body.password === req.body.confirmPassword){
-    try{
-        const salt = await bcrypt.genSalt(10);
-        const hashedpwd = await bcrypt.hash(password, salt);
-        await Shop.findOneAndUpdate({phoneNumber: shopPhone}, {$set: {password: hashedpwd}});
-        return res.status(200).json("Password changed successfully");
-    }catch(error){
-        return res.status(500).send(`Error: ${error}`)
+admin.get('/shops/:id',  [auth,theadmin] ,  async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const shop = await Shop.find({_id: req.params.id});
+  if(shop){
+    return  res.status(200).json({"shop": shop});
+    } else {
+      res.status(400).send("There are no shops available for you to see")
     }
-    
-
-
-  
+  }catch(error){
+    res.status(400).send(`Error: ${error}`)
   }
-
 });
+
+admin.delete('/shops/:id', [auth,theadmin] , (req, res) => {
+  Shop.findOneAndDelete({ _id: req.params.id }, (err, shop) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({
+        "status": "delete a shop",
+        "shop": shop
+      })
+    }
+  });
+});
+
 admin.post('/signin', async (req, res) => {
 
   const { phoneNumber, password } = req.body;
@@ -138,7 +146,7 @@ admin.get('/customers/:id', auth, async (req, res) => {
 });
 
 admin.put('/customers/:id', auth, async (req, res) => {
-  console.log(req.body);
+  // changing status of customer items
   try{  
     const customer = await Customer.findOneAndUpdate({ _id: req.params.id}, {$set : {status: req.body.status}});
     res.status(200).json({"customer": customer});
@@ -149,11 +157,29 @@ admin.put('/customers/:id', auth, async (req, res) => {
 });
 
 
+admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
+  // changing status of customer items
+  console.log(req.body);
+  if(req.body.newpassword === req.body.confirmpassword){
+    try{  
+      const salt = await bcrypt.genSalt(10);
+      const hashedpwd = await bcrypt.hash(req.body.newpassword, salt); 
+      const shop = await Shop.findOneAndUpdate({ phoneNumber: req.body.phonenumber}, {$set : {password: hashedpwd, role: req.body.roles}});
+      res.status(200).json({"customer": shop });
+      }catch(error){
+        return res.status(400).send(`Error: ${error}`)
+      }
+  
+  }
+  
+});
 
 
 
 
-admin.delete('/customers/:id', auth, (req, res) => {
+
+
+admin.delete('/customers/:id', [auth,theadmin] , (req, res) => {
   Customer.findOneAndDelete({ _id: req.params.id }, (err, customer) => {
     if (err) {
       console.log(err);
