@@ -42,7 +42,7 @@ admin.post('/createShop',[auth, theadmin], async (req, res) => {
 
 admin.get('/shops',  [auth,theadmin],  async (req, res) => {
 
-  try {const shops = await Shop.find({});
+  try {const shops = await Shop.find({}).sort({shopName: 'asc'});
   if(shops){
     return  res.status(200).json({"shops": shops});
     } else {
@@ -104,7 +104,7 @@ admin.post('/signin', async (req, res) => {
 
 admin.get('/:phone/customers', auth,  async (req, res) => {
  try{ 
-  const shop = await Shop.findOne({phoneNumber: req.params.phone});
+  const shop = await Shop.findOne({phoneNumber: req.params.phone}).sort({eventDate: -1});
   console.log(shop.phoneNumber);
   const customers = await Customer.find({shopPhone: shop.phoneNumber});
   if(!customers){
@@ -118,9 +118,9 @@ admin.get('/:phone/customers', auth,  async (req, res) => {
 });
 
 
-admin.get('/customers', auth, async (req, res) => {
+admin.get('/customers', [auth,theadmin] , async (req, res) => {
   try{ 
-    const customers = await Customer.find({});
+    const customers = await Customer.find({}).sort({eventDate: -1});
    if(!customers){
      return res.status(400).send("There is no customer for this shop")
    }else{
