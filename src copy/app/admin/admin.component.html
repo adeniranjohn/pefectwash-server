@@ -1,0 +1,21 @@
+
+
+<app-nav></app-nav>
+<mat-card class="mattop50 center">
+  <img mat-card-image [src]="imageurl">
+  <h2>sign in your credentials</h2>
+<form #f="ngForm" (ngSubmit)="getAdmin(f.value)">
+  <mat-form-field appearance="outline">
+  <mat-label for="phoneNumber">Phone number</mat-label>
+  <input matInput required type="text" name="phoneNumber" placeholder="Shop number" auto-complete="phone" id="phonenumber" ngModel/>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+  <mat-label for="password">Password</mat-label>
+  <input matInput required type="password" name="password" placeholder="Password" id="password"  auto-complete="current-password" ngModel/>
+  </mat-form-field>
+  <br>
+  <button type="submit" color="primary" mat-raised-button>Sign in</button>
+</form>
+</mat-card>
+

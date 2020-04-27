@@ -1,0 +1,22 @@
+.header {
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+  margin: 0px;
+  margin-top: 50px;
+  display: block;
+  width: 100%;
+  background-color: #ffd740;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #673ab7;
+}

@@ -1,0 +1,10 @@
+<app-admin-nav></app-admin-nav>
+<mat-card>
+  <img mat-card-image [src]="imageurl">
+<h2>shops</h2>
+
+<app-shop
+*ngFor="let ashop of shops"
+(click)="selectShop(ashop)"
+[shop]="ashop"></app-shop>
+</mat-card>

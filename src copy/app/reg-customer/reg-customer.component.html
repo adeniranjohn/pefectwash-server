@@ -1,0 +1,28 @@
+<app-admin-nav></app-admin-nav>
+<mat-card>
+  <img mat-card-image [src]="imageurl">
+<h2>make a wash</h2>
+<form #f="ngForm" (ngSubmit)="regCustomer(f.value)">
+  <mat-form-field appearance="outline">
+  <mat-label for="name">Customer name</mat-label>
+  <input matInput type="text" name="name" placeholder="Customer name" id="name" ngModel required>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="phone">Phone number</mat-label>
+  <input matInput type="text" name="phone" placeholder="Phone number" id="phone" ngModel required>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="itemsCount">Items count</mat-label>
+  <input matInput type="number"  name="itemsCount"placeholder="number of items" id="itemsCount" ngModel required>
+ </mat-form-field>
+ <br>
+<mat-form-field appearance="outline">
+  <mat-label for="amount">Amount</mat-label>
+  <input matInput type="number" name="amount" placeholder="Amount" id="amount" ngModel required>
+</mat-form-field>
+<br>
+  <button type="submit" color="primary" mat-raised-button>+ wash</button>
+</form>
+</mat-card>

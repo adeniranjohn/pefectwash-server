@@ -1,0 +1,11 @@
+<app-admin-nav></app-admin-nav>
+<mat-card>
+  <img mat-card-image [src]="imageurl">
+  <h2 class="white">washes</h2>
+<app-customer
+*ngFor="let thecustomer of customers"
+(click)="customerSelected(thecustomer)"
+[customer]='thecustomer'>
+</app-customer>
+</mat-card>
+

@@ -1,0 +1,19 @@
+
+<app-admin-nav></app-admin-nav>
+<mat-card>
+  <img mat-card-image [src]="imageurl">
+<form #shop="ngForm" (ngSubmit)="getNewShop(shop.value)">
+  <h2>create a new shop</h2>
+  <mat-form-field appearance="outline">
+  <mat-label for="shopname">Shop name</mat-label>
+  <input matInput type="text" name="shopName" placeholder="Shop name" id="shopName" ngModel required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+  <mat-label for="phoneNumber">Phone number</mat-label>
+  <input matInput type="text" name="phoneNumber" placeholder="Shop number" id="phoneNumber" ngModel required>
+  </mat-form-field><br>
+  <span>default password is welcome</span><br>
+  <button type="submit"color="primary" mat-raised-button>create shop</button>
+</form>
+</mat-card>
