@@ -1,6 +1,9 @@
 {
   "name": "client-angular",
   "version": "0.0.0",
+  "engines": {
+    "node": "10.16.3"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -29,9 +32,6 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "engines": {
-      "node": "10.16.x"
-    },
     "mongoose": "^5.6.9",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
