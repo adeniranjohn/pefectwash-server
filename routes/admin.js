@@ -57,15 +57,22 @@ admin.get('/shops/:id',  [auth,theadmin] ,  async (req, res) => {
   console.log(req.params.id);
   try {
     const shop = await Shop.find({_id: req.params.id});
+    const washes = await Customer.find({shopPhone: shop[0].phoneNumber});
+    const totalWashes = await Customer.find({shopName: shop[0].shopName});
   if(shop){
-    return  res.status(200).json({"shop": shop});
+    return  res.status(200).json({
+      "shop": shop,
+      "washes": washes,
+      "shopWashes": totalWashes
+  });
     } else {
-      res.status(400).send("There are no shops available for you to see")
+      res.status(400).send("There are no wash")
     }
   }catch(error){
     res.status(400).send(`Error: ${error}`)
   }
 });
+
 
 admin.delete('/shops/:id', [auth,theadmin] , (req, res) => {
   Shop.findOneAndDelete({ _id: req.params.id }, (err, shop) => {
@@ -94,7 +101,8 @@ admin.post('/signin', async (req, res) => {
         res.status(400).send("Invalid Phone number/Password");
       }else{
         const token = shop.generateToken();
-        res.header('x-auth-token', token).status(200).json({"shop": shop, "token": token});
+        console.log(token);
+        res.header('auth-pfw-token', token).status(200).json({"shop": shop, "token": token});
       }
     }}catch(error){
       res.status(400).send(`Error: ${error}`);
@@ -120,7 +128,7 @@ admin.get('/:phone/customers', auth,  async (req, res) => {
 
 admin.get('/customers', [auth,theadmin] , async (req, res) => {
   try{ 
-    const customers = await Customer.find({}).sort({eventDate: -1});
+    const customers = await Customer.find({}).sort({createdAt: 'desc'});
    if(!customers){
      return res.status(400).send("There is no customer for this shop")
    }else{
@@ -192,14 +200,14 @@ admin.delete('/customers/:id', [auth,theadmin] , (req, res) => {
   });
 });
 
-admin.post('/', auth,  async (req, res) => {
+admin.post('/customers', auth,  async (req, res) => {
 
   const name = req.body.name;
   const phone = req.body.phone;
   const itemsCount = req.body.itemsCount;
   const amount = req.body.amount;
   const eventDate = (new Date()).toLocaleString();
-  const shopPhone = req.body.shopPhone
+  const shopPhone = req.body.shopPhone;
 
   try {
     const customer = new Customer({
@@ -212,7 +220,7 @@ admin.post('/', auth,  async (req, res) => {
 
     });
     console.log(customer);
-    customer.save();
+    await customer.save();
     res.status(200).json({"customer": customer})
   } catch (error) {
     res.status(401).send(`Error: ${error}`)

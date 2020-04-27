@@ -1,3 +1,3 @@
-node_modules/
-views/img/banner.jpg
-views/img/banner.png
+/client-angular/node_modules
+node_modules
+.env

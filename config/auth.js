@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 module.exports.theadmin = function(req,res,next){
     if(req.shop.role === "Administrator"){
@@ -25,9 +24,8 @@ module.exports.auth = function(req,res,next) {
 
     }else{
         try{
-            const decoded = jwt.verify(token, "perfectWashKey");
+            const decoded = jwt.verify(token, process.env.JWT_KEY);
             req.shop = decoded;
-            console.log("auth")
             next();
         }catch(ex){
             res.status(400).json({"status": "Bad request. Invalid token"});

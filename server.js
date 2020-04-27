@@ -1,25 +1,15 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const session = require('express-session');
 const mongoose = require('mongoose');
-const flash = require('flash');
+require('dotenv').config();
 const cors = require('cors');
-const logger = require('morgan');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
 
 
 const app = express();
 app.use(cors());
-const port = process.env.PORT || 7000;
+const port = process.env.PORT;
 
-
-
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 
@@ -35,7 +25,7 @@ const updateRouter = require('./routes/update');
 
 
 //connect mongodb 
-mongoose.connect("mongodb://localhost:27017/perfectWash", { useNewUrlParser: true })
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
     .then(() => { console.log("Connected to Database") })
     .catch(() => { console.log("Unable to connect to the Database") });
 mongoose.set('useCreateIndex', true);

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const secret = "perfectWashKey";
 //Mongoose connection
 const shopSchema = new mongoose.Schema({
     shopName : {
@@ -34,7 +33,7 @@ const shopSchema = new mongoose.Schema({
 
 
 shopSchema.methods.generateToken = function(){
-  const token = jwt.sign({_id: this._id, phoneNumber: this.phoneNumber, role: this.role}, secret, { expiresIn: 60*60});
+  const token = jwt.sign({_id: this._id, phoneNumber: this.phoneNumber, role: this.role}, process.env.JWT_KEY, { expiresIn: 60*60});
   return token;
 }
 

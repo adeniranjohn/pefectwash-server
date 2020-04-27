@@ -8,8 +8,7 @@ var customerSchema = new Schema({
     phoneNumber : String,
     numberItems : Number,
     amountPaid: Number,
-    status: {type:String, default: "Recieved"},
-    eventDate: Date
+    status: {type:String, default: "Recieved",enum: ['Recieved', 'Washing', 'Drying', 'Pressing', 'Ready','Collected']}
 },
 {
     timestamps:true
