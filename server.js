@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const shopRouter = require('./routes/shop');
-const updateRouter = require('./routes/update');
+
 
 
 
