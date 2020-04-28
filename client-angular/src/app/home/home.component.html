@@ -1,0 +1,29 @@
+<app-nav></app-nav>
+ <mat-card class="mattop50">
+  <img mat-card-image [src]="imageurl">
+  <h3>kindly check your laundry status</h3>
+  <form #customer="ngForm" (ngSubmit)="getCustomer(customer.value)">
+    <mat-form-field appearance="outline">
+      <mat-label for="phonenumber">Phone number</mat-label>
+    <input matInput size="10"  required type="text" placeholder="Kindly enter your Phone number" id="phonenumber" name="phonenumber" ngModel/>
+  <button color="accent" type="submit" mat-raised-button >Check laundry status</button>
+  </mat-form-field>
+  </form>
+</mat-card>
+
+
+
+<mat-card *ngFor="let c of thecustomer">
+  <mat-list>
+  <mat-list-item><span class="labels"><strong>status</strong></span><span class="right">{{c.status}}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>items</strong></span><span>{{c.numberItems}}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>amount</strong></span><span>{{c.amountPaid | currency: "NGN":"symbol-narrow"}}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>date</strong></span><span>{{c.createdAt | date:'medium'}}</span></mat-list-item>
+<mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>shop</strong></span><span>{{c.shopPhone}}</span></mat-list-item>
+</mat-list>
+</mat-card>
+

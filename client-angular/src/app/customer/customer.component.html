@@ -1,0 +1,19 @@
+
+<mat-card>
+  <mat-list>
+  <mat-list-item><span class="labels"><strong>status</strong></span><span class="status">{{ customer.status }}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>name</strong></span><span>{{ customer.name }}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>items</strong></span><span>{{customer.numberItems}}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>amount</strong></span><span>{{customer.amountPaid | currency: "NGN":"symbol-narrow"}}</span></mat-list-item>
+  <mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>shop</strong></span><span>{{ customer.shopPhone }}</span></mat-list-item>
+<mat-divider [inset] ="true"></mat-divider>
+<mat-list-item><span class="labels"><strong>date</strong></span><span>{{ customer.createdAt | date:'medium' }}</span></mat-list-item>
+
+</mat-list>
+</mat-card>
+
+

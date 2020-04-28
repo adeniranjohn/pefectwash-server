@@ -1,0 +1,12 @@
+<app-admin-nav></app-admin-nav>
+<mat-card>
+<h2>shop details</h2>
+<app-shop [shop]="theshop"></app-shop>
+<mat-list>
+  <mat-list-item>total wash amount: {{totalWashAmount | currency: "NGN":"symbol-narrow"}}</mat-list-item>
+  <mat-list-item>total washes: {{totalWash}}</mat-list-item>
+</mat-list>
+
+<button mat-raised-button color="basic" (click)="back()">Back</button>
+<button (click)="delete(theshop._id)" mat-raised-button color="warn">Delete</button>
+</mat-card>

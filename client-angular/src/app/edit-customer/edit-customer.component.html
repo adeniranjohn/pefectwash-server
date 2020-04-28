@@ -1,0 +1,43 @@
+<app-admin-nav></app-admin-nav>
+<mat-card>
+  <img mat-card-image [src]="imageurl">
+<h2>update wash status</h2>
+<form #customer="ngForm" (ngSubmit)="saveCustomerStatus(customer.value)">
+  <mat-form-field appearance="outline">
+    <mat-label for="status">Status</mat-label>
+  <select  id="status" name="status" [(ngModel)]="thecustomer.status" matNativeControl required>
+    <option value="Peceived">Received</option>
+    <option value="Washing">Washing</option>
+    <option value="Drying">Drying</option>
+    <option value="Pressing">Pressing</option>
+    <option value="Ready">Ready</option>
+    <option value="Collected">Collected</option>
+  </select>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="name">Name</mat-label>
+  <input matInput type="name" id="name" name="customername" [(ngModel)]="thecustomer.name" disabled>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="phoneNumber">Phone number</mat-label>
+  <input matInput type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="thecustomer.phoneNumber" disabled>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="numberItems">Items</mat-label>
+  <input matInput type="text" id="numberItems" name="numberItems" [(ngModel)]="thecustomer.numberItems" disabled>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label for="amountPaid">Amount</mat-label>
+  <input matInput type="text" id="amountPaid" name="amountPaid" [(ngModel)]="thecustomer.amountPaid" disabled>
+</mat-form-field>
+<br>
+  <button mat-raised-button type="submit" color="primary" > Save </button>
+</form>
+  <h2>{{ thecustomer.eventDate | date:'medium' }}</h2>
+  <button (click)="cancel()" color="basic" mat-raised-button>Cancel</button>
+  <button (click)="deleteItems()" color="warn" mat-raised-button>Delete</button>
+</mat-card>

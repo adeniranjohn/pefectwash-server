@@ -1,0 +1,114 @@
+body {
+  max-width: 960px;
+  margin: 0 auto;
+
+}
+
+
+app-root {
+  margin:0 ;
+  padding: 0;
+
+}
+
+mat-card {
+    margin: 10px;
+    max-width: 100%;
+    padding: 5px;
+}
+
+strong {
+  text-align: left;
+}
+
+
+
+mat-nav-list {
+  background-color: white;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+a {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+
+.header {
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+  margin: 0px;
+  display: block;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+span {
+  font-size: 0.8rem;
+}
+
+span.status {
+
+  background-color:#ffd740;
+  color: #673ab7;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 1px;
+}
+
+span.labels {
+  display: inline-block;
+  margin: 2px 2px;
+  min-width: 30%;
+  color: #673ab7;
+}
+
+
+app-admin-nav {
+  margin-bottom: 50px;
+}
+
+form {
+  text-align:center;
+  padding: 5px;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #673ab7;
+  padding: 1px;
+  margin: 1px;
+}
+.primary {
+  background-color: #673ab7;
+  color: white;
+}
+
+.accent {
+  background-color: #ffd740;
+  color: black;
+
+}
+
+
+.white {
+  color: white;
+}
