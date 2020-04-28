@@ -35,7 +35,6 @@ mongoose.set('useFindAndModify', false);
 //Mounting
 app.use('/api/v1', indexRouter);
 app.use('/api/v1/admin', adminRouter);
-app.use('/api/v1/update', updateRouter);
 app.use('/api/v1/shop', shopRouter);
 
 
