@@ -10,7 +10,7 @@ const Customer = require('../model/customer.model');
     const customer = req.params.phone;
         try{
             const result = await Customer.find({phoneNumber : customer});
-            if(!result){ 
+            if(!result){
                 return res.status(400).send("Kindly enter your correct phone number");
             }else{
                 res.status(200).json({"data": result});
@@ -18,7 +18,9 @@ const Customer = require('../model/customer.model');
         }catch(error){
             res.status(400).send("Connection error");
         }
-            
+
     })
+
+    
 
 module.exports = index;
