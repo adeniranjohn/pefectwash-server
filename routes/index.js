@@ -21,6 +21,7 @@ const Customer = require('../model/customer.model');
 
     })
 
-    
-
+    index.get('/', (req, res) => {
+      res.send("Perfect Wash API");
+    })
 module.exports = index;
