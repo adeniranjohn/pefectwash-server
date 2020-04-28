@@ -12,13 +12,13 @@ const { auth, theadmin } = require('../config/auth');
 // Create a shop
 admin.post('/createShop',[auth, theadmin], async (req, res) => {
 
- 
+
   try {
     let { shopName, phoneNumber } = req.body;
     console.log(req.body);
     let password = 'welcome';
     let role = 'Supervisor';
-    
+
     const result = await Shop.findOne({ phoneNumber: phoneNumber })
     if (result) return res.status(400).send("Phone number is already registered to a Shop")
     const salt = await bcrypt.genSalt(10);
@@ -98,7 +98,7 @@ admin.post('/signin', async (req, res) => {
     }else{
       const result = await bcrypt.compare(password, shop.password);
       if(!result){
-        res.status(400).send("Invalid Phone number/Password");
+        res.status(400).send("Invalid Phone/Password");
       }else{
         const token = shop.generateToken();
         console.log(token);
@@ -111,7 +111,7 @@ admin.post('/signin', async (req, res) => {
 });
 
 admin.get('/:phone/customers', auth,  async (req, res) => {
- try{ 
+ try{
   const shop = await Shop.findOne({phoneNumber: req.params.phone}).sort({eventDate: -1});
   console.log(shop.phoneNumber);
   const customers = await Customer.find({shopPhone: shop.phoneNumber});
@@ -122,12 +122,12 @@ admin.get('/:phone/customers', auth,  async (req, res) => {
   }}catch(error){
     res.status(400).send(`Error: ${error}`);
   }
-  
+
 });
 
 
 admin.get('/customers', [auth,theadmin] , async (req, res) => {
-  try{ 
+  try{
     const customers = await Customer.find({}).sort({createdAt: 'desc'});
    if(!customers){
      return res.status(400).send("There is no customer for this shop")
@@ -136,12 +136,12 @@ admin.get('/customers', [auth,theadmin] , async (req, res) => {
    }}catch(error){
      res.status(400).send(`Error: ${error}`);
    }
-   
+
  });
 
 admin.get('/customers/:id', auth, async (req, res) => {
-  
-  try{  
+
+  try{
     const customer = await Customer.find({ _id: req.params.id});
     if (!customer) {
       return res.status(400).send("Customer does not exist")
@@ -155,7 +155,7 @@ admin.get('/customers/:id', auth, async (req, res) => {
 
 admin.put('/customers/:id', auth, async (req, res) => {
   // changing status of customer items
-  try{  
+  try{
     const customer = await Customer.findOneAndUpdate({ _id: req.params.id}, {$set : {status: req.body.status}});
     res.status(200).json({"customer": customer});
     }catch(error){
@@ -169,17 +169,17 @@ admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
   // changing status of customer items
   console.log(req.body);
   if(req.body.newpassword === req.body.confirmpassword){
-    try{  
+    try{
       const salt = await bcrypt.genSalt(10);
-      const hashedpwd = await bcrypt.hash(req.body.newpassword, salt); 
+      const hashedpwd = await bcrypt.hash(req.body.newpassword, salt);
       const shop = await Shop.findOneAndUpdate({ phoneNumber: req.body.phonenumber}, {$set : {password: hashedpwd, role: req.body.roles}});
       res.status(200).json({"customer": shop });
       }catch(error){
         return res.status(400).send(`Error: ${error}`)
       }
-  
+
   }
-  
+
 });
 
 
