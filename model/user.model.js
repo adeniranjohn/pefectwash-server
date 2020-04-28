@@ -22,7 +22,7 @@ const shopSchema = new mongoose.Schema({
     password: {
       type:String
     },
-    createdAt: 
+    createdAt:
       {
       type :Date,
       default : Date.now()
@@ -37,7 +37,7 @@ shopSchema.methods.generateToken = function(){
   return token;
 }
 
-const Shop = mongoose.model('Shop', shopSchema );
+const Shop = mongoose.model('shop', shopSchema, 'shops' );
 
 module.exports = Shop;
 

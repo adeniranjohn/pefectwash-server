@@ -92,7 +92,7 @@ admin.post('/signin', async (req, res) => {
   const { phoneNumber, password } = req.body;
 
   try{
-    const shop = await Shop.findOne({ phoneNumber: phoneNumber })
+    const shop = await Shop.findOne({phoneNumber: phoneNumber })
    if(!shop) {
      return res.status(400).send("Invalid Phone number/Password");
     }else{
