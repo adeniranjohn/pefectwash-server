@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 //Mongoose connection
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+    .then(() => { console.log("Connected to Database") })
+    .catch(() => { console.log("Unable to connect to the Database") });
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
+
+
 const shopSchema = new mongoose.Schema({
     shopName : {
       type: String,
