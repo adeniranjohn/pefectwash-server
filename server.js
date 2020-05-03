@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//require('dotenv').config();
+require('dotenv').config();
 const cors = require('cors');
-
+const compression = require('compression');
 
 const app = express();
+app.use(compression());
 app.use(cors());
 const port = process.env.PORT;
 
@@ -25,7 +26,11 @@ const shopRouter = require('./routes/shop');
 
 
 //connect mongodb
-
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+    .then(() => { console.log("Connected to Database") })
+    .catch(() => { console.log("Unable to connect to the Database") });
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 
 //Mounting
