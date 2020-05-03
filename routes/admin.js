@@ -15,7 +15,6 @@ admin.post('/createShop',[auth, theadmin], async (req, res) => {
 
   try {
     let { shopName, phoneNumber } = req.body;
-    console.log(req.body);
     let password = 'welcome';
     let role = 'Supervisor';
 
@@ -54,7 +53,6 @@ admin.get('/shops',  [auth,theadmin],  async (req, res) => {
 });
 
 admin.get('/shops/:id',  [auth,theadmin] ,  async (req, res) => {
-  console.log(req.params.id);
   try {
     const shop = await Shop.find({_id: req.params.id});
     const washes = await Customer.find({shopPhone: shop[0].phoneNumber});
@@ -77,7 +75,7 @@ admin.get('/shops/:id',  [auth,theadmin] ,  async (req, res) => {
 admin.delete('/shops/:id', [auth,theadmin] , (req, res) => {
   Shop.findOneAndDelete({ _id: req.params.id }, (err, shop) => {
     if (err) {
-      console.log(err);
+      res.status(500).send("Data error")
     } else {
       res.status(200).json({
         "status": "delete a shop",
@@ -93,7 +91,6 @@ admin.post('/signin', async (req, res) => {
 
   try{
     const shop = await Shop.findOne({phoneNumber: phoneNumber});
-    console.log(shop);
    if(!shop) {
      return res.status(400).send("Invalid Phone number/Password");
     }else{
@@ -102,7 +99,6 @@ admin.post('/signin', async (req, res) => {
         res.status(400).send("Invalid Phone/Password");
       }else{
         const token = shop.generateToken();
-        console.log(token);
         res.header('auth-pfw-token', token).status(200).json({"shop": shop, "token": token});
       }
     }}catch(error){
@@ -114,7 +110,6 @@ admin.post('/signin', async (req, res) => {
 admin.get('/:phone/customers', auth,  async (req, res) => {
  try{
   const shop = await Shop.findOne({phoneNumber: req.params.phone}).sort({eventDate: -1});
-  console.log(shop.phoneNumber);
   const customers = await Customer.find({shopPhone: shop.phoneNumber});
   if(!customers){
     return res.status(400).send("There is no customer for this shop")
@@ -168,7 +163,6 @@ admin.put('/customers/:id', auth, async (req, res) => {
 
 admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
   // changing status of customer items
-  console.log(req.body);
   if(req.body.newpassword === req.body.confirmpassword){
     try{
       const salt = await bcrypt.genSalt(10);
@@ -191,7 +185,7 @@ admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
 admin.delete('/customers/:id', [auth,theadmin] , (req, res) => {
   Customer.findOneAndDelete({ _id: req.params.id }, (err, customer) => {
     if (err) {
-      console.log(err);
+      res.status(400).send(`Error: ${error}`);
     } else {
       res.status(200).json({
         "status": "delete a customer",
@@ -220,7 +214,7 @@ admin.post('/customers', auth,  async (req, res) => {
       eventDate: eventDate,
 
     });
-    console.log(customer);
+
     await customer.save();
     res.status(200).json({"customer": customer})
   } catch (error) {

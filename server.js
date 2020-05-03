@@ -5,8 +5,9 @@ const cors = require('cors');
 const compression = require('compression');
 
 const app = express();
-app.use(compression());
 app.use(cors());
+app.use(compression());
+
 const port = process.env.PORT;
 
 app.use(express.json());
