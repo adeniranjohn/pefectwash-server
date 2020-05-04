@@ -163,7 +163,8 @@ admin.put('/customers/:id', auth, async (req, res) => {
 
 admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
   // changing status of customer items
-  if(req.body.newpassword === req.body.confirmpassword){
+console.log(req.body);
+  if(req.body.password === req.body.confirmpassword){
     try{
       const salt = await bcrypt.genSalt(10);
       const hashedpwd = await bcrypt.hash(req.body.newpassword, salt);
@@ -173,8 +174,9 @@ admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
         return res.status(400).send(`Error: ${error}`)
       }
 
+  }else{
+    console.log("Password not match");
   }
-
 });
 
 
@@ -199,8 +201,8 @@ admin.post('/customers', auth,  async (req, res) => {
 
   const name = req.body.name;
   const phone = req.body.phone;
-  const itemsCount = req.body.itemsCount;
-  const amount = req.body.amount;
+  const itemsCount = Number(req.body.itemsCount);
+  const amount = Math.abs(req.body.amount);
   const eventDate = (new Date()).toLocaleString();
   const shopPhone = req.body.shopPhone;
 
