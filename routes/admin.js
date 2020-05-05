@@ -163,14 +163,23 @@ admin.put('/customers/:id', auth, async (req, res) => {
 
 admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
   // changing status of customer items
-console.log(req.body);
+
   if(req.body.password === req.body.confirmpassword){
     try{
+      console.log(req.body);
       const salt = await bcrypt.genSalt(10);
-      const hashedpwd = await bcrypt.hash(req.body.newpassword, salt);
-      const shop = await Shop.findOneAndUpdate({ phoneNumber: req.body.phonenumber}, {$set : {password: hashedpwd, role: req.body.roles}});
-      res.status(200).json({"customer": shop });
+      const hashedpwd = await bcrypt.hash(req.body.password, salt);
+      await Shop.findOneAndUpdate({ phoneNumber: req.body.phoneNumber},{password: hashedpwd, role: req.body.roles}, (err, result) => {
+        if(err){
+          return res.status(400).send(`Error: ${err}`);
+        }else{
+          console.log(result);
+          return res.status(200).json({ "message": "shop edited" });
+        }
+      });
+
       }catch(error){
+        console.log(error);
         return res.status(400).send(`Error: ${error}`)
       }
 
