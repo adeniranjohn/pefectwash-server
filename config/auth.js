@@ -1,25 +1,23 @@
 const jwt = require('jsonwebtoken');
 
-module.exports.theadmin = function(req,res,next){
+function theadmin(req,res,next){
     if(req.shop.role === "Administrator"){
         next();
     }
 }
 
 
-module.exports.superAdmin = function(req,res,next){
+function superAdmin(req,res,next){
     if(req.shop.role === "SuperAdministrator"){
         console.log("Super Administrator");
         next();
     }
-    
+
 }
-module.exports.auth = function(req,res,next) {
-    const token = req.header('x-auth-token');
-    //const token = req.query.token;
-    //console.log(token);
+function auth(req,res,next) {
+
+    const token = req.headers.authorization.split(' ')[1];
     if(!token){
-        console.log("no token");
         return res.status(401).json({"status": "No token"})
 
     }else{
@@ -28,7 +26,12 @@ module.exports.auth = function(req,res,next) {
             req.shop = decoded;
             next();
         }catch(ex){
-            res.status(400).json({"status": "Bad request. Invalid token"});
+            res.status(400).json({"status": "Bad request. Invalid user"});
         }
     }
 }
+
+
+
+
+module.exports = { auth, theadmin }

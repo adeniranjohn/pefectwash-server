@@ -99,7 +99,7 @@ admin.post('/signin', async (req, res) => {
         res.status(400).send("Invalid Phone/Password");
       }else{
         const token = shop.generateToken();
-        res.header('auth-pfw-token', token).status(200).json({"shop": shop, "token": token});
+        res.header('x-pfw-token', token).status(200).json({"shop": shop, "x-pfw-token": token});
       }
     }}catch(error){
       res.status(400).send(`Error: ${error}`);
