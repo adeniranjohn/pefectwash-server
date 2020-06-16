@@ -96,7 +96,7 @@ admin.post('/signin', async (req, res) => {
     }else{
       const result = await bcrypt.compare(password, shop.password);
       if(!result){
-        res.status(400).send("Invalid Phone/Password");
+        res.status(400).send("Invalid Phone number/Password");
       }else{
         const token = shop.generateToken();
         res.header('x-pfw-token', token).status(200).json({"shop": shop, "x-pfw-token": token});
@@ -184,7 +184,7 @@ admin.put('/changePassword',[ auth, theadmin],  async (req, res) => {
       }
 
   }else{
-    console.log("Password not match");
+    return res.status(400).send('Password not match')
   }
 });
 
